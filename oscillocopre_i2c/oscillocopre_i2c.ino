@@ -1,10 +1,11 @@
 /*
 * Afficheur 16x2
 */
-#include <LiquidCrystal.h>
-const int rs = 12, en = 11, d4 = 4, d5 = 5, d6 = 6, d7 = 7;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
+//LiquidCrystal_I2C lcd(0x27, 16, 4);
+LiquidCrystal_I2C lcd(0x3F,16,2);
 
 #define R1 2000
 #define R2 560
@@ -17,22 +18,24 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 /*
 * caractere special
 */
-byte Ohm[8]={
+byte Ohm[8] = {
   B00000,
-    B00100,
-    B01010,
-    B10001,
-    B01010,
-    B11011
+  B00100,
+  B01010,
+  B10001,
+  B01010,
+  B11011
 };
 
 void lcdStartupScreen() {
   lcd.setCursor(5, 0);
-  lcd.write((byte)0);
+ // lcd.write((byte)0);
   lcd.print("rsys");
-  lcd.setCursor(3, 0);
+
+
+  lcd.setCursor(0, 1);
   lcd.print("voltmetre");
-} 
+}
 
 float calculateVin(uint16_t vADC) {
   return 5.0F / 1024.0F * vADC * RATION_VOLT;
@@ -45,6 +48,7 @@ void printvoltagevalue(float value) {
 
   lcd.setCursor(0, 1);
   lcd.print("Voltmetre: ");
+   lcd.setCursor(9, 1);
   lcd.print(value);
   lcd.print("V");
 }
@@ -54,22 +58,21 @@ void printvoltagevalue(float value) {
 
 void setup() {
   // put your setup code here, to run once:
-  lcd.createChar(0, Ohm);
+
 
   Serial.begin(9600);
 
-  lcd.begin(16, 2);
-  lcd.setCursor(4, 0);
-/* 
+  lcd.init();
+  /* 
 * demande de transformation forcé demanandé par la fonction write '(byte)0'
 */
-  lcd.write((byte)0);
-  lcd.print("rsys");
+ // lcd.createChar(0, Ohm);
+  lcd.backlight();
 
-  lcd.setCursor(0, 1);
-  lcd.print("Voltmetre");
+  lcdStartupScreen();
+
   delay(2000);
-  lcd.clear();
+  //lcd.clear();
 }
 
 void loop() {
