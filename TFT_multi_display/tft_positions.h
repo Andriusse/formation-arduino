@@ -1,5 +1,6 @@
 #ifndef _TFT_POSITIONS_H_
 #include <Adafruit_ST77xx.h>
+#define ST77XX_PINK 0xEAEB
 #define _TFT_POSITIONS_H_
 #define TFT_WIDTH 128.0F
 #define TFT_HEIGHT 160.0F

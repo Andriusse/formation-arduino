@@ -1,5 +1,24 @@
 #include "tft_positions.h"
 
+void makeBandeau() {
+  tft.fillRect(0, 0, tft.width(), 10, ST77XX_PINK);
+  tft.fillRect(tft.width() / 2 - 31, 0, 62, 16, ST77XX_PINK);
+}
+void writeDateTime(tmElements_t tm) {
+  makeBandeau();
+  char buffer[11];
+  tft.setCursor(2, 1);
+  tft.setTextSize(1);
+  tft.setTextColor(ST77XX_WHITE);
+  sprintf(buffer, "%02d/%02d", tm.Day, tm.Month);
+  tft.print(buffer);
+  tft.setCursor(101, 1); 
+  tft.print(tmYearToCalendar(tm.Year));
+  tft.setCursor(tft.width() / 2 - 28, 1);
+  tft.setTextSize(2);
+  sprintf(buffer, "%02d:%02d", tm.Hour, tm.Minute);
+  tft.print(buffer);
+}
 void screenSetup() {
   tft.fillScreen(0x0);
   tft.setCursor(34, 10);
