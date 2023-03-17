@@ -1,7 +1,7 @@
 #include "config.h"
 #ifdef DUMMY_TEMPERATURE
-float readTemperature() {
-  sensorsValues.temperature = 0.0F;
+float readTemperature(){
   return sensorsValues.temperature;
+
 }
 #endif

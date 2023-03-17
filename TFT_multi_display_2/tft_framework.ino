@@ -12,14 +12,29 @@ void writeDateTime(tmElements_t tm) {
   tft.setTextColor(ST77XX_WHITE);
   sprintf(buffer, "%02d/%02d", tm.Day, tm.Month);
   tft.print(buffer);
-  tft.setCursor(101, 1);
+  tft.setCursor(101, 1); 
   tft.print(tmYearToCalendar(tm.Year));
   tft.setCursor(tft.width() / 2 - 28, 1);
   tft.setTextSize(2);
   sprintf(buffer, "%02d:%02d", tm.Hour, tm.Minute);
   tft.print(buffer);
 }
-
+void screenSetup() {
+  tft.fillScreen(0x0);
+  tft.setCursor(34, 10);
+  tft.setTextSize(2);
+  tft.setTextColor(0x7FB8);
+  tft.print("Orsys");
+  tft.setCursor(5, 50);
+  // tft.setTextColor(0xFFFF);
+  // tft.print("Volts");
+  // tft.setCursor(60, 70);
+  // tft.print("Metre");
+  tft.setTextSize(1);
+  tft.setTextColor(0x7FB8);
+  tft.setCursor(15, 140);
+  tft.print("copyright 2023");
+}
 void makeCadre(uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char *title) {
   tft.setCursor(x + CADRE_FROMREF_TITLE_X, y + CADRE_FROMREF_TITLE_Y);
   tft.setTextSize(CADRE_TITLE_SIZE);

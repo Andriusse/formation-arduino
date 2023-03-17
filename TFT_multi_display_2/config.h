@@ -5,7 +5,6 @@
   #define BMP180_TEMPERATURE
   #define DUMMY_TEMPERATURE
 
-  #define ST7735
-
+  
   #include "config_adv.h"
 #endif
